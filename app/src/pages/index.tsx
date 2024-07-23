@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import useFetchState from 'hooks/useFetchState';
 import { increase } from 'libs/methods';
+import { toast } from 'react-toastify';
 
 export default function Home() {
   const wallet = useWallet();
@@ -18,6 +19,11 @@ export default function Home() {
     const txSignature = await increase(wallet, program);
     console.log(txSignature);
     setReload({});
+    if (txSignature) {
+      toast.success("Successfully increased!");
+    } else {
+      toast.error("Failed to increase!");
+    }
   }
 
 
